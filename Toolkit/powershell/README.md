@@ -56,4 +56,29 @@ something like `Get-VM | Select-Object Name,NumCPU,MemoryMB,PowerState,Host | Ex
 4. If you get a list of VMs, congratulations! You are now ready to use the scripts in this directory.
 
 # How to use the scripts in this directory?
-...Stay tuned for scripts and more instructions
+The following examples should not be performed in a production environment. They are being provided for example purposes only.
+
+###To create a zone that contains all Hosts and Subsystem interfaces in CDC instance 1
+1. From Powershell, cd to the directory that contains the `BasicSANdboxFunctions.ps1` PowerShell script:
+
+    `PS > cd C:\work\scripts\`
+
+2. Modify the parameters in the VARIABLES section of the `BasicSANdboxFunctions.ps1` PowerShell script to match the specifics of your environment:
+
+    `$SFSSIP = "Your SFSS IP ADDRESS"`
+    
+    `$SFSSusername = "A valid username for your SFSS instance"`
+    
+    `$SFSSpassword = "The password associated with the username provided above"`
+    
+3. Source the `BasicSANdboxFunctions.ps1` PowerShell script to import the functions and variables defined within:
+
+    `PS > . .\BasicSANdboxFunctions.ps1`
+
+4. Establish a session with the SFSS instance by running `Get-SFSS-IPAddressManagement`
+
+    `PS > Get-SFSS-IPAddressManagement`
+
+5. Create the zone, zonegroup and activate the zonegroup:
+
+    `PS > ZoneA`
