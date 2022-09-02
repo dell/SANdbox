@@ -14,11 +14,11 @@ command from within the PowerShell instance running on your system.
 - One or more PowerShell or PowerCLI functions.  You are free to use the ones provided in this directory (no warranty expressed or implied, YMMV) or write your own...that's the beauty of a developer enablement portal!
 
 ### A REALLY simple way to verify that PowerShell is configured correctly:
-1. From Powershell, cd to the directory that contains the `GilgitSANdboxFunctions.ps1` PowerShell script:
+1. From Powershell, cd to the directory that contains the `BasicSANdboxFunctions.ps1` PowerShell script:
 
     `PS > cd C:\work\scripts\`
 
-2. Modify the parameters in the VARIABLES section of the `GilgitSANdboxFunctions.ps1` PowerShell script to match the specifics of your environment:
+2. Modify the parameters in the VARIABLES section of the `BasicSANdboxFunctions.ps1` PowerShell script to match the specifics of your environment:
 
     `$SFSSIP = "Your SFSS IP ADDRESS"`
     
@@ -26,9 +26,9 @@ command from within the PowerShell instance running on your system.
     
     `$SFSSpassword = "The password associated with the username provided above"`
     
-3. Source the `GilgitSANdboxFunctions.ps1` PowerShell script to import the functions and variables defined within:
+3. Source the `BasicSANdboxFunctions.ps1` PowerShell script to import the functions and variables defined within:
 
-    `PS > . .\GilgitSANdboxFunctions.ps1`
+    `PS > . .\BasicSANdboxFunctions.ps1`
 
 4. Establish a session with the SFSS instance by running `Get-SFSS-IPAddressManagement`
 
