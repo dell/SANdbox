@@ -13,17 +13,26 @@ command from within the PowerShell instance running on your system.
 - vCenter - (Optional: Only Required when running scripts that interact with vCenter such as setupLocalLab.ps1) 
 - One or more PowerShell or PowerCLI functions.  You are free to use the ones provided in this directory (no warranty expressed or implied, YMMV) or write your own...that's the beauty of a developer enablement portal!
 
-     **NOTE:** A REALLY simple way to verify that PowerShell is configured correctly is to do the following:
+### A REALLY simple way to verify that PowerShell is configured correctly:
 1. From Powershell, cd to the directory that contains the `GilgitSANdboxFunctions.ps1` PowerShell script:
-`PS > cd C:\work\scripts\`
+
+    `PS > cd C:\work\scripts\`
+
 2. Modify the parameters in the VARIABLES section of the `GilgitSANdboxFunctions.ps1` PowerShell script to match the specifics of your environment:
-`$SFSSIP = "Your SFSS IP ADDRESS"`
-`$SFSSusername = "A valid username for your SFSS instance"`
-`$SFSSpassword = "The password associated with the username provided above"
+
+    `$SFSSIP = "Your SFSS IP ADDRESS"`
+    
+    `$SFSSusername = "A valid username for your SFSS instance"`
+    
+    `$SFSSpassword = "The password associated with the username provided above"`
+    
 3. Source the `GilgitSANdboxFunctions.ps1` PowerShell script to import the functions and variables defined within:
-`PS > . .\GilgitSANdboxFunctions.ps1`
+
+    `PS > . .\GilgitSANdboxFunctions.ps1`
+
 4. Establish a session with the SFSS instance by running `Get-SFSS-IPAddressManagement`
-`PS > Get-SFSS-IPAddressManagement`
+
+    `PS > Get-SFSS-IPAddressManagement`
 
 Something like the following output will be shown:
     Getting SFSS Interfaces...
@@ -35,9 +44,8 @@ Something like the following output will be shown:
     @odata.id                        : /redfish/v1/SFSSApp/IpAddressManagements?=IpAddressManagements
     @odata.context                   : /redfish/v1/SFSSApp/$metadata#IpAddressManagements
     @odata.type                      : #IpAddressManagementsCollection.IpAddressManagementsCollection
- 
 
-     **NOTE:** A REALLY simple way to verify if PowerShell AND PowerCLI are configured correctly is to do the following:
+### A REALLY simple way to verify if PowerShell AND PowerCLI are configured correctly:
 1. Connect to your vCenter instance using the `Connect-VIServer <VIserver FQDN or IP Address>`, for example `Connect-VIServer 10.10.10.42`
      **NOTE:** If you get a error about unknown or invalid certificates you COULD use the 
 `Set-PowerCLIConfiguration -Scope User -InvalidCertificateAction warn` command but please take note, `-Scope` is set to User not CurrentUser.
