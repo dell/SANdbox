@@ -58,7 +58,7 @@ something like `Get-VM | Select-Object Name,NumCPU,MemoryMB,PowerState,Host | Ex
 # How to use the scripts in this directory?
 The following examples should not be performed in a production environment. They are being provided for example purposes only.
 
-###To create a zone that contains all Hosts and Subsystem interfaces in CDC instance 1
+### To create a zone that contains all Hosts and Subsystem interfaces in CDC instance 1
 1. From Powershell, cd to the directory that contains the `BasicSANdboxFunctions.ps1` PowerShell script:
 
     `PS > cd C:\work\scripts\`
