@@ -14,4 +14,4 @@ Additional information about SFSS, as well as the NVMe/TCP ecosystem that is bei
 - [NVMe-oF Looking beyond performance hero numbers](https://www.youtube.com/watch?v=F6nifK_Rkxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FVftH7iA$)
 - [SNIA NSF – Discovery Automation for NVMe IP-Based SANs](https://www.youtube.com/watch?v=uzeK_g-1Pxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6F4G96ptU$)
 - [SNIA SDC – Discovery Protocol deep dive](https://www.youtube.com/watch?v=Oqb3s0llNxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FeqdFbxU$)
-- [Nvme-stas (Dell maintained open source discovery client for Linux)](https://github.com/linux-nvme/nvme-stas__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FnqM_z2E$) 
+- [Nvme-stas (Dell maintained open source discovery client for Linux)](https://github.com/linux-nvme/nvme-stas) 
