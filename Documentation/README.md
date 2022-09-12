@@ -2,7 +2,7 @@
 
 SANdbox is currently intended to provide documentation, tools and helpful resources that will enable you to programatically interact with IP SANs.  Before you begin, please take a moment to review the following information:
 
-If you intend to work with physical assets (Servers, Networking and Stroage) and will be configuring these resources for use in an actual physical datacenter, please refer to the - [SmartFabric Storage Software Deployment Guide](https://infohub.delltechnologies.com/t/smartfabric-storage-software-deployment-guide/)
+If you intend to work with physical assets (Servers, Networking and Stroage) and will be configuring these resources for use in an actual physical datacenter, please refer to the following if you are deploying Dell's CDC implmentation SmartFabric Storage Software (SFSS) - [SmartFabric Storage Software Deployment Guide](https://infohub.delltechnologies.com/t/smartfabric-storage-software-deployment-guide/)
 
 If you would rather work with virtual assets (e.g., a virtual data center in AWS) and would like to follow step-by-step instructions to create such an environment, please refer to - [Let's play in an AWS based SANdbox!](https://brasstacksblog.typepad.com)
 
