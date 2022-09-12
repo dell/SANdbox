@@ -3,7 +3,9 @@ SANdbox is a developer enablement portal that provides documentation and tools t
 
 ![IP SAN Diagram](https://github.com/dell/SANdbox/blob/main/Documentation/Images/SimpleIPSAN.png)
 
-Dell SmartFabric Storage Software (SFSS) is Dell Technologies' implementation of a Centralized Discovery Controller (CDC) that allows administrators to deploy NVMe/TCP at scale. SFSS accomplishes this by providing a Centralized Discovery Service for NVMe/TCP Endpoints that facilitates endpoint discovery, registration, soft zoning, and event notification.
+As the number of endpoints used begin to scale up (e.g., more than 32 end devices), a traditional NVMe IP-Based SAN can become difficult to manage. More information about this scalability problem can be found here ![NVMe-oF: Discovery Automation for NVMe IP-Based SANs](https://www.youtube.com/watch?v=uzeK_g-1Pxw)  
+
+To address this scalability challenge, several companies have collaborated on the concept of a Centralized Discovery Controller (CDC) to allow administrators to deploy NVMe/TCP at scale. This is accomplished by providing a Centralized Discovery Service for NVMe/TCP Endpoints that facilitates endpoint discovery, registration, soft zoning, and event notification.
 
 ![IP SAN Diagram](https://github.com/dell/SANdbox/blob/main/Documentation/Images/DetailedIPSAN.png)
 
