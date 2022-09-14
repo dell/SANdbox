@@ -4,4 +4,5 @@ A Centralized Discovery Controller (CDC) is an NVMe-oF Discovery Controller that
 ## SmartFabric Storage Software (SFSS) 
 SFSS is Dell's implementation of a CDC and is available for you to download and use for a limited time for trial purposes.
 
-Other CDC implmentations may eventually be made available here as well.
+## Other CDC implmentations 
+Other CDC implementations will be provided as they become available.
