@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import requests
 import sfsslib
 
@@ -7,41 +8,37 @@ sfss = sfsslib.RestApi('w.x.y.z', 'admin', 'adminpass')
 
 def zone(instance: int, zone_group_name: str):
     reply = sfss.create_zone_group(instance, zone_group_name)
-    if reply.status_code != requests.codes.ALL_GOOD:
-        raise 'Failed to create zone group'
-
-    try:
-        hosts = sfss.get_hosts(instance).json()['Hosts']
-    except KeyError:
-        raise 'Failed to retrieve Hosts'
+    if not reply.ok:
+        sys.exit('Failed to create zone group')
 
     # Create Zones foreach Host
+    hosts = sfss.get_hosts(instance)
     for host in hosts:
         zone_name = host['TransportAddress']
         reply = sfss.create_zone(instance, zone_name)
-        if reply.status_code != requests.codes.ALL_GOOD:
-            raise 'Failed to create zone'
+        if not reply.ok:
+            sys.exit('Failed to create zone')
 
         nqn = host['NQN']  # REVIEW: Unused
         id = host['Id']
         reply = sfss.add_zone_member(instance, zone_name, id, 'Host')
-        if reply.status_code != requests.codes.ALL_GOOD:
-            raise 'Failed to add zone member (Host)'
+        if not reply.ok:
+            sys.exit('Failed to add zone member (Host)')
 
         # For each subsystem, add subsystem NQN to the Host Zone
-        subsystems = sfss.get_subsystems(instance).json()  # REVIEW: This returns a dict and not a list
+        subsystems = sfss.get_subsystems(instance)
         for subsystem in subsystems:
             nqn = subsystem['NQN']  # REVIEW: Unused
             id = subsystem['Id']
             reply = sfss.add_zone_member(instance, zone_name, id, 'Subsystem')
-            if reply.status_code != requests.codes.ALL_GOOD:
-                raise 'Failed to add zone member (Subsystem)'
+            if not reply.ok:
+                sys.exit('Failed to add zone member (Subsystem)')
 
     # Activate the Zone group
-    zone_group = sfss.get_zonedb_configdb(instance).json()['ZoneGroups']
+    zone_group = sfss.get_zone_group(instance)
     reply = sfss.activate_zonedb(instance, zone_group)
-    if reply.status_code != requests.codes.ALL_GOOD:
-        raise 'Failed to activate zone group'
+    if not reply.ok:
+        sys.exit('Failed to activate zone group')
 
 
 zone(1, 'ZG-VLAN100')  # Zone A
