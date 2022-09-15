@@ -70,10 +70,12 @@ class RestApi:
         return reply
 
     def get_ip_address_management(self):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = 'SFSSApp/IpAddressManagements?$expand=IpAddressManagements'
         return self._get(oid)
 
     def edit_ipv4_address_management(self, iface: str, addr: str, cfg: str, gw: str, plen: int, mtu: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         json_data = {
             'IPV4Address': addr,
             'IPV4Config': cfg,
@@ -85,6 +87,7 @@ class RestApi:
         return self._put(oid, json_data)
 
     def pull_register_ddc(self, instance: int, trtype: str, traddr: str, trsvcid: int, activate: bool):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         ip = ipaddress.ip_address(traddr)
         json_data = {
             'TransportType': trtype,
@@ -97,22 +100,27 @@ class RestApi:
         return self._post(oid, json_data, {'Accept': 'application/json'})
 
     def get_ddcs(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f'SFSS/{instance}/DDCs'
         return self._get(oid)
 
     def delete_ddc(self, instance: int, ddc: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f'SFSS/{instance}/DDCs({ddc})'
         return self._delete(oid, {'Accept': 'application/json'})
 
     def get_subsystems(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f'SFSS/{instance}/Subsystems?$expand=Subsystems'
         return self._get(oid)
 
     def get_instance(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f"SFSSApp/CDCInstanceManagers('{instance}')"
         return self._get(oid)
 
     def create_instance(self, instance: int, interfaces: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         json_data = {
             'InstanceIdentifier': instance,
             'Interfaces': interfaces,
@@ -123,27 +131,33 @@ class RestApi:
         return self._put(oid, json_data)
 
     def get_foundational_configs(self):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = 'SFSSApp/FoundationalConfigs?$expand=FoundationalConfigs'
         return self._get(oid)
 
     def get_hosts(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f'SFSS/{instance}/Hosts?$expand=Hosts'
         return self._get(oid)
 
     def get_zonedb(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f'SFSS/{instance}/ZoneDBs'
         return self._get(oid)
 
     def get_zonedb_configdb(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f"SFSS/{instance}/ZoneDBs('config')?$source=config"
         return self._get(oid)
 
     def get_zonedb_activedb(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         # REVIEW: This is the same as get_zone_group
         oid = f"SFSS/{instance}/ZoneDBs('active')?"
         return self._get(oid)
 
     def activate_zonedb(self, instance: int, zone_group: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         json_data = {
             'ActivateStatus': 'Activate',
         }
@@ -151,7 +165,11 @@ class RestApi:
         return self._put(oid, json_data)
 
     def deactivate_zonedb(self, instance: int):
-        zone_group = self.get_zonedb_activedb(instance)['ZoneGroups']
+        '''@return: requests.Response object (see https://requests.readthedocs.io/) on success, None otherwise.'''
+        zone_group = self.get_zone_group(instance)
+        if zone_group is None:
+            return None
+
         json_data = {
             'ActivateStatus': 'DeActivate',
         }
@@ -159,11 +177,21 @@ class RestApi:
         return self._put(oid, json_data)
 
     def get_zone_group(self, instance: int):
+        '''Get Zone Group.
+        @return: Zone group on success, None otherwise.'''
         # REVIEW: This is the same as get_zonedb_configdb
         oid = f"SFSS/{instance}/ZoneDBs('config')?$source=config"
-        return self._get(oid)
+        reply = self._get(oid)
+        if reply.status_code != requests.codes.ALL_GOOD:
+            return None
+
+        try:
+            return reply.json()['ZoneGroups']
+        except KeyError:
+            return None
 
     def create_zone_group(self, instance: int, zone_group_name: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         # REVIEW: $Headers is undefined
         json_data = {
             'ZoneDBType': 'config',
@@ -173,19 +201,44 @@ class RestApi:
         return self._post(oid, json_data, {'Accept': 'application/json'})
 
     def delete_zone_group(self, instance: int, zone_group_name: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         # REVIEW: zone_group_name should be in parenthesis
         oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group_name})"
         return self._delete(oid)
 
-    def get_zones(self, instance: int, zone_name: str):
-        # REVIEW: What should we do with zone_name
-        zone_group = self.get_zone_group(instance)['ZoneGroups']
+    def get_zones(self, instance: int):
+        '''Get all the zones.
+        @return: tuple(zone_group, list-of-zones) on success, tuple(None, []) otherwise.'''
+        zone_group = self.get_zone_group(instance)
+        if zone_group is None:
+            return None, []
+
         oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group})/Zones?$source=config&$expand=Zones"
-        return self._get(oid)
+        reply = self._get(oid)
+        if reply.status_code != requests.codes.ALL_GOOD:
+            return None, []
+
+        return zone_group, reply.json()
+
+    def get_zone(self, instance: int, zone_name: str):
+        '''Get zone by name.
+        @return: A tuple (zone_group, zone_id) on success, (None, None) otherwise'''
+        zone_group, zones = self.get_zones(instance)
+        if zone_group is None:
+            return None, None
+
+        for zone in zones:
+            if zone.get('ZoneName') == zone_name:
+                return zone_group, zone.get('ZoneId')
+
+        return None, None
 
     def create_zone(self, instance: int, zone_name: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/) on success, None otherwise.'''
         # REVIEW: $Headers is undefined
-        zone_group = self.get_zone_group(instance)['ZoneGroups']
+        zone_group = self.get_zone_group(instance)
+        if zone_group is None:
+            return None
         json_data = {
             'ZoneName': zone_name,
         }
@@ -193,33 +246,32 @@ class RestApi:
         return self._post(oid, json_data, {'Accept': 'application/json'})
 
     def delete_zone(self, instance: int, zone_name: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         # REVIEW: $Headers is undefined
-        zone_group = self.get_zone_group(instance)['ZoneGroups']
-        zones = self.get_zones(instance, zone_name)  # REVIEW: zone_name is unused
-        for zone in zones:
-            if zone['ZoneName'] == zone_name:
-                oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group})/Zones({zone['ZoneId']})"
-                return self._delete(oid)
+        zone_group, zone_id = self.get_zone(instance, zone_name)
+        if None in (zone_group, zone_id):
+            return None
 
-        return None
+        oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group})/Zones({zone_id})"
+        return self._delete(oid)
 
     def add_zone_member(self, instance: int, zone_name: str, member: str, role: str):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/) on success, None otherwise.'''
         # REVIEW: $Headers is undefined
-        zone_group = self.get_zone_group(instance)['ZoneGroups']
-        zones = self.get_zones(instance, zone_name)  # REVIEW: zone_name is unused
-        for zone in zones:
-            if zone['ZoneName'] == zone_name:
-                json_data = {
-                    'ZoneMemberId': member,
-                    'ZoneMemberType': 'FullQualifiedName',
-                    'Role': role,
-                }
-                oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group})/Zones({zone['ZoneId']})/ZoneMembers"
-                return self._post(oid, json_data, {'Accept': 'application/json'})
+        zone_group, zone_id = self.get_zone(instance, zone_name)
+        if None in (zone_group, zone_id):
+            return None
 
-        return None
+        json_data = {
+            'ZoneMemberId': member,
+            'ZoneMemberType': 'FullQualifiedName',
+            'Role': role,
+        }
+        oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups({zone_group})/Zones({zone_id})/ZoneMembers"
+        return self._post(oid, json_data, {'Accept': 'application/json'})
 
     def get_zonedb_configdb_zone_group(self, instance: int):
+        '''@return: requests.Response object (see https://requests.readthedocs.io/)'''
         oid = f"SFSS/{instance}/ZoneDBs('config')/ZoneGroups?$source=config"
         return self._get(oid)
 

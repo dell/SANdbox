@@ -6,7 +6,9 @@ sfss = sfsslib.RestApi('w.x.y.z', 'admin', 'adminpass')
 
 
 def zone(instance: int, zone_group_name: str):
-    sfss.create_zone_group(instance, zone_group_name)
+    reply = sfss.create_zone_group(instance, zone_group_name)
+    if reply.status_code != requests.codes.ALL_GOOD:
+        raise 'Failed to create zone group'
 
     try:
         hosts = sfss.get_hosts(instance).json()['Hosts']
