@@ -75,7 +75,7 @@ class RestApi:
         if not reply.ok:
             return []
 
-        return reply.json().get(key)
+        return reply.json().get(key, [])
 
     def get_ip_address_management(self):
         '''@return: IP Management list on success, empty list otherwise.'''
