@@ -433,14 +433,27 @@ $activatezoneset = Activate-SFSS-ZoneDB -ZoneGroup $ZoneGroup -Instance 2
 #######VARIABLES############
 
 #SFSS MgmtIP
-$SFSSIP = "w.x.y.z"
+#$SFSSIP = "w.x.y.z"
 
 #SFSS User/Pass
-$SFSSusername = "admin"
-$SFSSpassword = "adminpass"
+#$SFSSusername = "admin"
+#$SFSSpassword = "adminpass"
 
-$secpasswd = ConvertTo-SecureString $SFSSpassword -AsPlainText -Force
-$cred = New-Object System.Management.Automation.PSCredential ($SFSSusername, $secpasswd)
+#$secpasswd = ConvertTo-SecureString $SFSSpassword -AsPlainText -Force
+#$cred = New-Object System.Management.Automation.PSCredential ($SFSSusername, $secpasswd)
+
+add-type @"
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+            return true;
+        }
+    }
+"@
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
 #######MAIN FUNCTION############
 
