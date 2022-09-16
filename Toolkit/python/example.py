@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
 import sys
-import requests
 import sfsslib
 
 sfss = sfsslib.RestApi('w.x.y.z', 'admin', 'adminpass')
 
 
 def zone(instance: int, zone_group_name: str):
-    reply = sfss.create_zone_group(instance, zone_group_name)
-    if not reply.ok:
+    zone_group_id = sfss.create_zone_group(instance, zone_group_name)
+    if zone_group_id is None:
         sys.exit('Failed to create zone group')
 
     # Create Zones foreach Host
     hosts = sfss.get_hosts(instance)
     for host in hosts:
         zone_name = host['TransportAddress']
-        reply = sfss.create_zone(instance, zone_name)
-        if not reply.ok:
-            sys.exit('Failed to create zone')
+        zone_id = sfss.create_zone(instance, zone_group_id, zone_name)
+        if zone_id is None:
+            sys.exit(f'Failed to create zone {zone_name}')
 
         nqn = host['NQN']  # REVIEW: Unused
         id = host['Id']
-        reply = sfss.add_zone_member(instance, zone_name, id, 'Host')
+        reply = sfss.add_zone_member(instance, zone_group_id, zone_id, id, 'Host')
         if not reply.ok:
             sys.exit('Failed to add zone member (Host)')
 
@@ -30,13 +29,12 @@ def zone(instance: int, zone_group_name: str):
         for subsystem in subsystems:
             nqn = subsystem['NQN']  # REVIEW: Unused
             id = subsystem['Id']
-            reply = sfss.add_zone_member(instance, zone_name, id, 'Subsystem')
+            reply = sfss.add_zone_member(instance, zone_group_id, zone_id, id, 'Subsystem')
             if not reply.ok:
                 sys.exit('Failed to add zone member (Subsystem)')
 
     # Activate the Zone group
-    zone_group = sfss.get_zone_group(instance)
-    reply = sfss.activate_zonedb(instance, zone_group)
+    reply = sfss.activate_zone_group(instance, zone_group_id)
     if not reply.ok:
         sys.exit('Failed to activate zone group')
 
