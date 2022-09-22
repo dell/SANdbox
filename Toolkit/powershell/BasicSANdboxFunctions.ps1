@@ -94,7 +94,7 @@ function Delete-SFSS-DDC {
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/DDCs(""" + $DDC + """)" 
     Write-Host "Getting SFSS DDCs..."
     $Headers = @{'Accept'='application/json'}
-    $response = Invoke-RestMethod -uri $uri -method Delete -credential $cred -ContentType "application/json" -Headers $Headers -body $json
+    $response = Invoke-RestMethod -uri $uri -method Delete -credential $cred -ContentType "application/json"
 
     return $response
 }
