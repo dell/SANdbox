@@ -11,3 +11,9 @@ Technical Propoposal TP8010.
 ## Try it before you load it!
 If you're just looking for an overview of SFSS and see what it can do, Dell has provided
 an [SFSS simulator](https://www.delltechnologies.com/en-us/product-demos/smartfabric-storage-software/index.htm?ref=DemoCenter__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FYuZEtJU$) that is available for you to experiment with.
+
+## Docker
+
+```bash
+docker-compose up
+```
