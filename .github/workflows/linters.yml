@@ -20,3 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: azohra/shell-linter@v0.6.0
+
+  powershell-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: lint
+      uses: devblackops/github-action-psscriptanalyzer@master
