@@ -6,7 +6,7 @@ version: "3.7"
 services:
 
   alertservice:
-    image: "ghcr.io/dell/SANdbox/opi-spdk:alertservice:1.1.0.0038"
+    image: "ghcr.io/dell/SANdbox/alertservice:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
@@ -16,7 +16,57 @@ services:
       - sfss
 
   cdcproxy:
-    image: "ghcr.io/dell/SANdbox/opi-spdk:cdcproxy:1.1.0.0038"
+    image: "ghcr.io/dell/SANdbox/cdcproxy:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  discoverymdns:
+    image: "ghcr.io/dell/SANdbox/discoverymdns:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  fabricmanager:
+    image: "ghcr.io/dell/SANdbox/fabricmanager:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  stfs-mgmt:
+    image: "ghcr.io/dell/SANdbox/stfs-mgmt:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  stfs-redis:
+    image: "ghcr.io/dell/SANdbox/stfs-redis:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  rest:
+    image: "ghcr.io/dell/SANdbox/rest:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
