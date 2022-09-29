@@ -1,4 +1,4 @@
-## SANdbox
+# SANdbox
 
 [![Linters](https://github.com/dell/SANdbox/actions/workflows/linters.yml/badge.svg)](https://github.com/dell/SANdbox/actions/workflows/linters.yml)
 [![License](https://img.shields.io/github/license/dell/SANdbox?style=flat-square&color=blue&label=License)](https://github.com/dell/SANdbox/blob/master/LICENSE)
@@ -17,8 +17,9 @@ To address this scalability challenge, several companies have collaborated on th
 SANdbox provides documentation, tools and helpful resources that will enable you to programatically interact with IP SANs.  Before you begin, please take a moment to review the following information.
 
 Additional information about Centralized Discovery Controllers (for example Dell's SFSS) and the NVMe/TCP ecosystem can be found below:
+
 - [The Future of Software-defined Networking for Storage Connectivity](https://www.delltechnologies.com/en-us/blog/the-future-of-software-defined-networking-for-storage-connectivity/)
 - [NVMe-oF Looking beyond performance hero numbers](https://www.youtube.com/watch?v=F6nifK_Rkxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FVftH7iA$)
 - [SNIA NSF – Discovery Automation for NVMe IP-Based SANs](https://www.youtube.com/watch?v=uzeK_g-1Pxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6F4G96ptU$)
 - [SNIA SDC – Discovery Protocol deep dive](https://www.youtube.com/watch?v=Oqb3s0llNxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FeqdFbxU$)
-- [Nvme-stas (Dell maintained open source discovery client for Linux)](https://github.com/linux-nvme/nvme-stas) 
+- [Nvme-stas (Dell maintained open source discovery client for Linux)](https://github.com/linux-nvme/nvme-stas)

@@ -1,11 +1,11 @@
-# Centralized Discovery Controller Implementations 
+# Centralized Discovery Controller Implementations
 
-A Centralized Discovery Controller (CDC) is an NVMe-oF Discovery Controller that supports NVM Express(TM) Technical Proposal (TP8010). 
+A Centralized Discovery Controller (CDC) is an NVMe-oF Discovery Controller that supports NVM Express(TM) Technical Proposal (TP8010).
 
-## SmartFabric Storage Software (SFSS) 
+## SmartFabric Storage Software (SFSS)
 
 SFSS is Dell's implementation of a CDC and is available for you to download and use for a limited time for trial purposes.
 
-## Other CDC implmentations 
+## Other CDC implmentations
 
 Other CDC implementations will be provided as they become available.
