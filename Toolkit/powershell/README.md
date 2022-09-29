@@ -57,8 +57,8 @@ Something like the following output will be shown:
 2. Proivde the vCenter credentials when prompted.
 3. Get a list of VMs from vCenter using the `Get-VM | Select-Object Name,NumCPU,MemoryMB,PowerState,Host | Export-CSV VMs.csv -NoTypeInformation`
 
-	 **NOTE:** If you don't have local admin rights, this command will probably fail with `about attempting to access c:\WINDOWS\system32\vms.cs` as a result you'll need to use something like
-	 `Get-VM | Select-Object Name,NumCPU,MemoryMB,PowerState,Host | Export-CSV C:\Users\iiiiitsJonny\PowerCLIOutput\VMs.csv -NoTypeInformation`
+     **NOTE:** If you don't have local admin rights, this command will probably fail with `about attempting to access c:\WINDOWS\system32\vms.cs` as a result you'll need to use something like
+     `Get-VM | Select-Object Name,NumCPU,MemoryMB,PowerState,Host | Export-CSV C:\Users\iiiiitsJonny\PowerCLIOutput\VMs.csv -NoTypeInformation`
 
 4. If you get a list of VMs, congratulations! You are now ready to use the scripts in this directory.
 
