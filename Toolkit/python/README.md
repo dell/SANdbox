@@ -1,3 +1,3 @@
-# Python script usage 
+# Python script usage
 
 Basic python script usage is coming soon.

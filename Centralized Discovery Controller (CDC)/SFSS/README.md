@@ -1,6 +1,6 @@
 # SFSS - SmartFabric Storage Software
 
-SFSS enables the automated discovery of NVMe controllers that are available to each host within an NVMe IP-Based Storage Area Network (SAN). 
+SFSS enables the automated discovery of NVMe controllers that are available to each host within an NVMe IP-Based Storage Area Network (SAN).
 
 SFSS provides:
 
