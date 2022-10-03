@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: lint
-      uses: devblackops/github-action-psscriptanalyzer@v2.3.1
+      uses: devblackops/github-action-psscriptanalyzer@v2.4.0
 
   pyflakes:
     runs-on: ubuntu-latest
