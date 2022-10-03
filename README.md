@@ -8,7 +8,7 @@ SANdbox is a developer enablement portal that provides documentation and tools t
 
 ![IP SAN Diagram](https://github.com/dell/SANdbox/blob/main/Documentation/Images/SimpleIPSAN.png)
 
-As the number of endpoints used begin to scale up (e.g., more than 32 end devices), a traditional NVMe IP-Based SAN can become difficult to manage. More information about this scalability problem can be found here ![NVMe-oF: Discovery Automation for NVMe IP-Based SANs](https://www.youtube.com/watch?v=uzeK_g-1Pxw)  
+As the number of endpoints used begin to scale up (e.g., more than 32 end devices), a traditional NVMe IP-Based SAN can become difficult to manage. More information about this scalability problem can be found here [NVMe-oF: Discovery Automation for NVMe IP-Based SANs](https://www.brighttalk.com/webcast/663/511545)
 
 To address this scalability challenge, several companies have collaborated on the concept of a Centralized Discovery Controller (CDC) to allow administrators to deploy NVMe/TCP at scale. This is accomplished by providing a Centralized Discovery Service for NVMe/TCP Endpoints that facilitates endpoint discovery, registration, soft zoning, and event notification.
 
