@@ -106,21 +106,21 @@ function Get-SFSS-SubSystem {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/"+ $Instance + "/Subsystems?" + '$expand=Subsystems'
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
-function Get-SFSS-Instances {
+function Get-SFSS-Instance {
     param(
     [Parameter(Mandatory=$true)][int]$Instance
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSSApp/CDCInstanceManagers('$Instance')"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
-function Add-SFSS-Instances {
+function Add-SFSS-Instance {
     param(
         $InstanceIdentifier,
         $Interfaces
@@ -135,29 +135,29 @@ function Add-SFSS-Instances {
     $json = $json | ConvertTo-Json
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSSApp/CDCInstanceManagers('$InstanceIdentifier')"
     $response = Invoke-RestMethod -Uri $uri -Method PUT -Credential $cred -ContentType "application/json" -Body $json
-    
+
 	return $response
 }
 
-function Get-SFSS-FoundationalConfigs{
+function Get-SFSS-FoundationalConfig {
     param(
     #[Parameter(Mandatory=$true)][int]$Instance
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSSApp/FoundationalConfigs?" + '$expand=FoundationalConfigs'
 
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
-function Get-SFSS-Hosts {
+function Get-SFSS-Host {
      param(
     [Parameter(Mandatory=$true)][int]$Instance
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/Hosts?" + '$expand=Hosts'
     #Write-Output $uri
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -167,7 +167,7 @@ function Get-SFSS-ZoneDB {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/ZoneDBs"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -177,7 +177,7 @@ function Get-SFSS-ZoneDB-ConfigDB {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/ZoneDBs('config')?" + '$source=config'
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -187,7 +187,7 @@ function Get-SFSS-ZoneDB-ActiveDB {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/"+ $Instance + "/ZoneDBs('active')?"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -231,7 +231,7 @@ function Get-SFSS-ZoneGroup {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/ZoneDBs('config')?" + '$source' + "=config"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -268,7 +268,7 @@ function Remove-SFSS-ZoneGroup {
 	return $response
 }
 
-function Get-SFSS-Zones {
+function Get-SFSS-Zone {
     param (
         #$zonename,
         [Parameter(Mandatory=$true)][int]$Instance
@@ -277,7 +277,7 @@ function Get-SFSS-Zones {
     $ZoneGroup = (Get-SFSS-ZoneGroup -Instance $Instance).ZoneGroups
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" +$Instance+ "/ZoneDBs('config')/ZoneGroups(" + $ZoneGroup + ")/Zones?" + '$source' + "=config" + '&$expand=Zones'
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -307,7 +307,7 @@ function Remove-SFSS-Zone {
         [Parameter(Mandatory=$true)][int]$Instance
         )
     $ZoneGroup = (Get-SFSS-ZoneGroup).ZoneGroups
-    $Zones = Get-SFSS-Zones
+    $Zones = Get-SFSS-Zone
     $ZoneToDelete = $Zones.Zones | Where-Object {$_.ZoneName -eq $zonename}
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/ZoneDBs('config')/ZoneGroups(" + $ZoneGroup + ")/Zones('" + $ZoneToDelete.ZoneId + "')"
     $response = Invoke-RestMethod -uri $uri -method DELETE -credential $cred -ContentType "application/json" -Headers $Headers
@@ -324,10 +324,10 @@ function Add-SFSS-ZoneMember{
         $role,
         [Parameter(Mandatory=$true)][int]$Instance
         )
-    Write-Output "Adding member" $member "To Zone: " $zonename -ForegroundColor Yellow
+    Write-Output "Adding member: $($member) to Zone: $($zonename)"
     $ZoneGroup = (Get-SFSS-ZoneGroup -Instance $Instance).ZoneGroups
 
-    $Zones = Get-SFSS-Zones -Instance $Instance
+    $Zones = Get-SFSS-Zone -Instance $Instance
     $Zone = ($Zones.Zones | Where-Object {$_.ZoneName -eq $zonename}) | Select-Object ZoneId
 
     $json = @{
@@ -349,7 +349,7 @@ function Get-SFSS-ZoneDB-ConfigDB-ZoneGroup {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/"+ $Instance +"/ZoneDBs('config')/ZoneGroups?$source=config"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -359,7 +359,7 @@ function Get-SFSS-ZoneDB-ActiveDB {
     )
     $uri = "https://" + $SFSSIP + "/redfish/v1/SFSS/" + $Instance + "/ZoneDBs('active')"
     $response = Invoke-RestMethod -Uri $uri -Method Get -Credential $cred -ContentType "application/json"
-    
+
 	return $response
 }
 
@@ -370,7 +370,7 @@ Add-SFSS-ZoneGroup -ZoneGroupName ZG-VLAN100 -Instance 1
 
 
  #Get Hosts
- $InitiatorHosts = Get-SFSS-Hosts -Instance 1
+ $InitiatorHosts = Get-SFSS-Host -Instance 1
 
  #Create Zones foreach Host
  $InitiatorHosts = $InitiatorHosts.Hosts
@@ -420,7 +420,7 @@ Add-SFSS-ZoneGroup -ZoneGroupName ZG-VLAN200 -Instance 2
 
 
  #Get Hosts
- $InitiatorHosts = Get-SFSS-Hosts -Instance 2
+ $InitiatorHosts = Get-SFSS-Host -Instance 2
 
  #Create Zones foreach Host
  $InitiatorHosts = $InitiatorHosts.Hosts
