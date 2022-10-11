@@ -9,7 +9,19 @@ on:
 
 jobs:
 
-  sfss-ci:
+  sfss-debian:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install SFSS deb
+      run: |
+        set -x
+        wget https://linux.dell.com/files/SANdbox/1.1.0/sfss-1.1.0.0038.deb.zip
+        unzip sfss-1.1.0.0038.deb.zip
+        sudo dpkg -i sfss-1.1.0.0038.deb
+    - name: Test SFSS deb
+      run: echo "TBD"
+
+  sfss-compose:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -22,8 +34,18 @@ jobs:
     - name: Setup Docker buildx
       uses: docker/setup-buildx-action@d5234d6605774d496731c394511848830d37a200
 
+    - name: Download docker images until published
+      run: |
+        set -x
+        wget https://linux.dell.com/files/SANdbox/1.1.0/sfss-1.1.0.0038.deb.zip
+        unzip sfss-1.1.0.0038.deb.zip
+        ar xv sfss-1.1.0.0038.deb
+        tar -xvf data.tar.xz
+        cd ./pkgs/sfss/images/sfss-1.1.0.0038
+        for i in $( ls ); do docker load < $i; done
+
     - name: Start containers
-      run: docker-compose up -d || true
+      run: docker-compose up -d
       working-directory: "Centralized Discovery Controller (CDC)/SFSS"
 
     - name: Logs
