@@ -6,87 +6,87 @@ version: "3.7"
 services:
 
   alertservice:
-    image: "ghcr.io/dell/SANdbox/alertservice:1.1.0.0038"
+    image: "alertservice:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9001:9001"
     privileged: true
     networks:
       - sfss
 
   app-rest:
-    image: "ghcr.io/dell/SANdbox/app-rest:1.1.0.0038"
+    image: "app-rest:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9002:9002"
     privileged: true
     networks:
       - sfss
 
   cdcproxy:
-    image: "ghcr.io/dell/SANdbox/cdcproxy:1.1.0.0038"
+    image: "cdcproxy:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9003:9003"
     privileged: true
     networks:
       - sfss
 
   centralnz:
-    image: "ghcr.io/dell/SANdbox/centralnz:1.1.0.0038"
+    image: "centralnz:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9004:9004"
     privileged: true
     networks:
       - sfss
 
   discoverymdns:
-    image: "ghcr.io/dell/SANdbox/discoverymdns:1.1.0.0038"
+    image: "discoverymdns:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9005:9005"
     privileged: true
     networks:
       - sfss
 
   fabricmanager:
-    image: "ghcr.io/dell/SANdbox/fabricmanager:1.1.0.0038"
+    image: "fabricmanager:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9006:9006"
     privileged: true
     networks:
       - sfss
 
   lcm:
-    image: "ghcr.io/dell/SANdbox/lcm:1.1.0.0038"
+    image: "lcm:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9007:9007"
     privileged: true
     networks:
       - sfss
 
   license:
-    image: "ghcr.io/dell/SANdbox/license:1.1.0.0038"
+    image: "license:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9008:9008"
     privileged: true
     networks:
       - sfss
 
   monitor:
-    image: "ghcr.io/dell/SANdbox/monitor:1.1.0.0038"
+    image: "monitor:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
@@ -96,44 +96,50 @@ services:
       - sfss
 
   stfs-mgmt:
-    image: "ghcr.io/dell/SANdbox/stfs-mgmt:1.1.0.0038"
+    image: "stfs-mgmt:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9010:9010"
+    environment:
+      DEPLOYMENT_MODEL: EMBEDDED
     privileged: true
     networks:
       - sfss
 
   stfs-redis:
-    image: "ghcr.io/dell/SANdbox/stfs-redis:1.1.0.0038"
+    image: "stfs-redis:1.1.0.0038"
     volumes:
       - /proc:/proc
+      - redis_data:/data
     ports:
-      - "9009:9009"
+      - "9011:9011"
     privileged: true
     networks:
       - sfss
 
   stfs-syslog-ng:
-    image: "ghcr.io/dell/SANdbox/stfs-syslog-ng:1.1.0.0038"
+    image: "stfs-syslog-ng:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9012:9012"
     privileged: true
     networks:
       - sfss
 
   rest:
-    image: "ghcr.io/dell/SANdbox/rest:1.1.0.0038"
+    image: "rest:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
-      - "9009:9009"
+      - "9013:9013"
     privileged: true
     networks:
       - sfss
 
 networks:
-  opi:
+  sfss:
+
+volumes:
+    redis_data:
