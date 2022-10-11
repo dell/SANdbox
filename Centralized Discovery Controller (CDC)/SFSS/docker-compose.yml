@@ -15,8 +15,28 @@ services:
     networks:
       - sfss
 
+  app-rest:
+    image: "ghcr.io/dell/SANdbox/app-rest:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
   cdcproxy:
     image: "ghcr.io/dell/SANdbox/cdcproxy:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  centralnz:
+    image: "ghcr.io/dell/SANdbox/centralnz:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
@@ -45,6 +65,36 @@ services:
     networks:
       - sfss
 
+  lcm:
+    image: "ghcr.io/dell/SANdbox/lcm:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  license:
+    image: "ghcr.io/dell/SANdbox/license:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  monitor:
+    image: "ghcr.io/dell/SANdbox/monitor:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
   stfs-mgmt:
     image: "ghcr.io/dell/SANdbox/stfs-mgmt:1.1.0.0038"
     volumes:
@@ -57,6 +107,16 @@ services:
 
   stfs-redis:
     image: "ghcr.io/dell/SANdbox/stfs-redis:1.1.0.0038"
+    volumes:
+      - /proc:/proc
+    ports:
+      - "9009:9009"
+    privileged: true
+    networks:
+      - sfss
+
+  stfs-syslog-ng:
+    image: "ghcr.io/dell/SANdbox/stfs-syslog-ng:1.1.0.0038"
     volumes:
       - /proc:/proc
     ports:
