@@ -18,3 +18,65 @@ an [SFSS simulator](https://www.delltechnologies.com/en-us/product-demos/smartfa
 ```bash
 docker-compose up
 ```
+
+## KVM
+
+This is just a short version of the [Official documentation](https://www.dell.com/support/manuals/en-us/dell-emc-smartfabric-storage-software/sfss-120-user-guide/)
+
+### Virtualization support
+
+Make sure that VT-x/AMD-v support is enabled in BIOS
+
+```bash
+$ lscpu | grep -i virtualization
+Virtualization:                  VT-x
+```
+
+and that kvm modules are loaded
+
+```bash
+$ lsmod | grep -i kvm
+kvm_intel             217088  0
+kvm                   614400  1 kvm_intel
+irqbypass              16384  1 kvm
+```
+
+### Qemu installation
+
+From <https://www.qemu.org/download/>
+
+Installation on Fedora
+
+```bash
+sudo dnf install qemu-kvm wget
+```
+
+or on Ubuntu
+
+```bash
+sudo apt install qemu-system wget
+```
+
+or on SUSE
+
+```bash
+sudo zypper install qemu-kvm wget
+```
+
+### Download guest image
+
+```bash
+wget https://linux.dell.com/files/SANdbox/1.2.0/CDC-1.2.0.0028_2022_0719_0410.qcow2.zip
+unzip CDC-1.2.0.0028_2022_0719_0410.qcow2.zip
+```
+
+### Run KVM with above image
+
+```bash
+qemu-kvm -cpu host -smp 2 -m 1G \
+-drive file=CDC-1.2.0.0028_2022_0719_0410.qcow2,if=none,id=disk \
+-device ide-hd,drive=disk,bootindex=0 \
+--nographic
+```
+
+Login using admin/admin and change your defualt password
