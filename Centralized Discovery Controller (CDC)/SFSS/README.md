@@ -79,4 +79,13 @@ qemu-kvm -cpu host -smp 2 -m 1G \
 --nographic
 ```
 
+or
+
+```bash
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 1G \
+-drive file=CDC-1.2.0.0028_2022_0719_0410.qcow2,if=none,id=disk \
+-device ide-hd,drive=disk,bootindex=0 \
+--nographic
+```
+
 Login using admin/admin and change your defualt password
