@@ -33,6 +33,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: pyflakes
-        uses: reviewdog/action-pyflakes@v1.7.0
+        uses: reviewdog/action-pyflakes@v1.7.1
         with:
           github_token: ${{ secrets.github_token }}
