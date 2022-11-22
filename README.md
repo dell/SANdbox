@@ -1,6 +1,7 @@
 # SANdbox
 
 [![Linters](https://github.com/dell/SANdbox/actions/workflows/linters.yml/badge.svg)](https://github.com/dell/SANdbox/actions/workflows/linters.yml)
+[![SFSS](https://github.com/dell/SANdbox/actions/workflows/sfss.yml/badge.svg)](https://github.com/dell/SANdbox/actions/workflows/sfss.yml)
 [![License](https://img.shields.io/github/license/dell/SANdbox?style=flat-square&color=blue&label=License)](https://github.com/dell/SANdbox/blob/master/LICENSE)
 [![Last Release](https://img.shields.io/github/v/release/dell/SANdbox?label=Latest&style=flat-square&logo=go)](https://github.com/dell/SANdbox/releases)
 
