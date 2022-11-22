@@ -88,4 +88,18 @@ qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 1G \
 --nographic
 ```
 
+or
+
+```bash
+virsh net-start default
+virt-install \
+--name sfss \
+--memory 16384 \
+--vcpus 8 \
+--os-variant generic \
+--import --disk path=CDC-1.2.0.0028_2022_0719_0410.qcow2 \
+--network network=default \
+--graphics none
+```
+
 Login using admin/admin and change your defualt password
