@@ -24,3 +24,4 @@ Additional information about Centralized Discovery Controllers (for example Dell
 - [SNIA NSF – Discovery Automation for NVMe IP-Based SANs](https://www.youtube.com/watch?v=uzeK_g-1Pxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6F4G96ptU$)
 - [SNIA SDC – Discovery Protocol deep dive](https://www.youtube.com/watch?v=Oqb3s0llNxw__;!!NEt6yMaO-gk!WdfAXaGVUFFHMzL4v-Pj2BdinQaPpTkm1l6GZTc15AdXNgIWDPyAsi6FeqdFbxU$)
 - [Nvme-stas (Dell maintained open source discovery client for Linux)](https://github.com/linux-nvme/nvme-stas)
+- [SPDK added support for TP-8009 Auto-discovery](https://github.com/spdk/spdk/commit/2796687d54c4dc0e1babf5422057239612e9a10c)
