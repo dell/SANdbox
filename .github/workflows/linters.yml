@@ -24,14 +24,14 @@ jobs:
   powershell-lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: lint
       uses: devblackops/github-action-psscriptanalyzer@v2.4.0
 
   pyflakes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: pyflakes
         uses: reviewdog/action-pyflakes@v1.7.1
         with:
