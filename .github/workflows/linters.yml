@@ -11,27 +11,27 @@ jobs:
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run tests
         run: docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --ignore=minutes --disable=MD013 "**/*.md"
 
   shellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: azohra/shell-linter@v0.6.0
 
   powershell-lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: lint
       uses: devblackops/github-action-psscriptanalyzer@v2.4.0
 
   pyflakes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: pyflakes
         uses: reviewdog/action-pyflakes@v1.9.0
         with:
